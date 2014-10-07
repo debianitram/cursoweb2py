@@ -1,0 +1,27 @@
+{{extend 'layout.html'}}
+
+<div class='row'>
+    <div class='well'>
+        {{for publicacion in publicaciones:}}
+        
+        <div class='row-fluid'>
+            <div class='span6'>
+                <h4>
+                    {{=publicacion.titulo}}
+                </h4>
+                {{=IMG(_src=URL('download', args=[publicacion.imagen]),
+                       _class='img-circle img-polaroid')}}
+            </div>
+            <div class='span4'>
+                <ul class='nav nav-list'>
+                   <li><i class='icon-user'></i> {{=publicacion.autor.last_name}}, {{=publicacion.autor.first_name}}</li> 
+                   <li><i class='icon-calendar'></i> {{=publicacion.fecha}}</li>
+                    <li>{{=A('Ver más', _href=URL(c='users', f='pub', args=[publicacion.id]), _class='btn')}}</li>
+                </ul>
+            </div>
+        </div>
+        <hr class='bs-docs' />
+        {{pass}}
+        
+    </div>
+</div>
