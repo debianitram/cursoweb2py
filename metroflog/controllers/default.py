@@ -21,6 +21,50 @@ def index():
     return dict(publicaciones=publicaciones)
 
 
+def crear_publicacion():
+    form = FORM('Título: ',
+                INPUT(_name='titulo', requires=IS_NOT_EMPTY()),
+                INPUT(_type='submit'))
+    
+    if form.process(formname='publicacion').accepted:
+        response.flash = 'Su título fue enviado correctamente'
+        
+    elif form.errors:
+        response.flash = 'Controle el formulario'
+    
+    return dict()
+
+def publicacion():
+    
+    Publicacion.titulo.requires = [IS_NOT_EMPTY(), IS_LENGTH(6)]
+    
+    form = SQLFORM(Publicacion)
+    if form.accepts(request.vars, session):
+        response.flash = 'Se ingresó un nueva publicación'
+        
+    elif form.errors:
+        response.flash = 'Controle el formulario'
+    
+    return dict(form=form)
+
+
+def publicacion_factory():
+    form = SQLFORM.factory(Field('imagen', 'upload'),
+                           Field('fecha', 'date'),
+                           Field('usuario', 'reference auth_user'))
+    form.fecha['_placeholder'] = 'yyyy/mm/dd'
+    return dict(form=form)
+
+
+def consulta():
+    return dict()
+
+def mostrar_resultado():
+    query = Publicacion.titulo.lower().contains(request.vars.secondname)
+    if not db(query).isempty():
+        return db(query).select()
+    return ''
+
 def user():
     """
     exposes:

@@ -16,7 +16,10 @@
                 <ul class='nav nav-list'>
                    <li><i class='icon-user'></i> {{=publicacion.autor.last_name}}, {{=publicacion.autor.first_name}}</li> 
                    <li><i class='icon-calendar'></i> {{=publicacion.fecha}}</li>
-                    <li>{{=A('Ver más', _href=URL(c='users', f='pub', args=[publicacion.id]), _class='btn')}}</li>
+                    <li>{{=A('Ver más', 
+                            _href=URL(c='users', 
+                                     f='pub',
+                                     vars=dict(id_publicacion=publicacion.id)), _class='btn')}}</li>
                 </ul>
             </div>
         </div>

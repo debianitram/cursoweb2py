@@ -1,0 +1,11 @@
+{{extend 'layout.html'}}
+
+
+{{expresion = 'ajax("%s", ["secondname"], "resultado");' % URL(c='default', f='mostrar_resultado')}}
+
+<form method='POST'>
+    <input name='secondname' onkeypress="{{=expresion}}">
+    <input type='submit'>
+</form>
+
+<div id='resultado'></div>

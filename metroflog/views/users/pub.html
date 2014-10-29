@@ -1,0 +1,61 @@
+{{extend 'layout.html'}}
+
+<div class='row'>
+    <div class='span8'>
+        <h4>{{=post.titulo}}</h4>
+        <hr class='bs-docs-separator' />
+        <img src="{{=URL(c='default', 
+                         f='download',
+                         args=post.imagen)}}"
+            class='img-polaroid' />
+        <hr class='bs-docs-separator' />
+        <ul class='inline'>
+            <li>
+                <i class='icon-user'></i>
+                {{=post.autor.last_name}}, {{=post.autor.first_name}}
+            </li>
+            <li>|</li>
+            <li>
+                <i class='icon-calendar'></i>
+                {{=post.fecha}}
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class='row'>
+    <div class='span12'>
+        <table class='table'>
+            <thead>
+                <tr>
+                    <th>Usuario</th>
+                    <th>Fecha</th>
+                    <th>Mensaje</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{for comentario in comments:}}
+                    <tr>
+                        <td>{{=comentario.autor.last_name}},
+                            {{=comentario.autor.first_name}}
+                        </td>
+                        <td>{{=comentario.fecha}}</td>
+                        <td>{{=comentario.mensaje}}</td>
+                    </tr>
+                {{pass}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class='row'>
+    <div class='span12'>
+        {{if auth.user:}}
+            {{=form}}
+        {{else:}}
+            <span class='alert alert-error'>
+                Para publicar un comentario debe autenticarse
+            </span>
+        {{pass}}
+    </div>
+</div>

@@ -1,0 +1,13 @@
+{{extend 'layout.html'}}
+<h1>Crear una publicación</h1>
+
+<form method='post' action='{{URL()}}'>
+    <input name='titulo' />
+    <input type='hidden' value='publicacion' name='_formname' />
+    <input type='submit' />
+    
+</form>
+<h3>
+    Este es el titulo
+</h3>
+{{=request.vars.titulo}}

@@ -16,16 +16,23 @@ service = Service()
 plugins = PluginManager()
 
 ## create all tables needed by auth if not custom tables
+auth.settings.extra_fields['auth_user']= [
+  Field('direccion', requires=IS_NOT_EMPTY()),
+  Field('ciudad'),
+  Field('codigo_postal'),
+  Field('telefono')]
+
 auth.define_tables(username=False, signature=False)
 
 ## configure email
 mail = auth.settings.mailer
-mail.settings.server = 'logging' if request.is_local else 'smtp.gmail.com:587'
-mail.settings.sender = 'you@gmail.com'
-mail.settings.login = 'username:password'
+mail.settings.server = 'smtp.gmail.com:587'
+mail.settings.sender = 'debianitram@gmail.com'
+mail.settings.login = 'debianitram:micontraseña'
 
 ## configure auth policy
-auth.settings.registration_requires_verification = False
+# Esto es un comentario
+auth.settings.registration_requires_verification = True
 auth.settings.registration_requires_approval = False
 auth.settings.reset_password_requires_verification = True
 
